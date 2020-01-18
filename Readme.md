@@ -1,6 +1,6 @@
 ## markdown截图辅助脚本
 
-用markdown记笔记最大的好处就是记笔记格式不乱，截图太麻烦写了个脚本。
+用markdown记笔记最大的好处就是记笔记格式不乱，截图太麻烦写了个python脚本。
 
 适用于windows，暂未适配linux。
 
@@ -10,11 +10,16 @@
 
 `cleanup.py`可以检测markdown中没有用到的图片，方便删除。一开始定义了两个变量`image_path`和`markdown_path`。执行后会扫描`image_path`中的`.png`或`.jpg`后缀的文件，同时会扫描`markdown_path`中所有`.md`结尾的文件，用正则`!\[[^\]]*\]\(([^\)]+)\)`去找类似于`![xxx](xxx/xxx)`这样的图像引用，会列出所有没有被引用到的图片的文件名字。
 
+
 ## 配置
 我用的截图软件是[Greenshot](https://github.com/greenshot/greenshot/releases)。
 
 当前工程是`markdown_screenshot`，位于`D:/projects/markdown_screenshot`目录：
 ![2020-01-18-17_07_34.jpg](imgs/2020-01-18-17_07_34.jpg)
+
+- 默认情况下，所有的图片都存储在imgs目录下。
+- 默认情况下，markdown的文件位置必须和imgs文件夹同目录，*您可以自行更改`clip.py`中的`folder_name`前缀*
+- 兼容`Python2`或`Python3`
 
 下面这些设定是必须的：
 #### 文件存储路径
@@ -24,6 +29,8 @@
 #### 添加Greenshot对clip.py的引用
 这可以让Greenshot截图完成后直接将markdown文本复制到剪贴板上。
 - 右键点击托盘图标的`配置外部命令`
+
+
 ![2020-01-18-17_14_05.jpg](imgs/2020-01-18-17_14_05.jpg)
 - 添加一个新的外部命令设置，启动程序为python的主程序，**请根据您的环境自行设置**，参数包含clip.py脚本和图片文件名。这里我的设定名称`to markdown`，命令`C:\Python37\python.exe`，参数` D:\projects\markdown_screenshot\imgs\clip.py "{0}"`。这里的`clip.py`的路径并不需要根据不同的项目去切换。
 ![2020-01-18-17_20_18.jpg](imgs/2020-01-18-17_20_18.jpg)
